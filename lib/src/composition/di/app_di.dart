@@ -1,0 +1,22 @@
+import 'package:core/core.dart';
+import 'package:core/di/core_di.dart';
+import 'package:ecommerce_fm/src/composition/di/feature_modules.dart';
+import 'package:ecommerce_fm/src/composition/router/app_router.dart';
+import 'package:flutter/material.dart';
+
+Future<GetIt> setudDI(String baseUrl) async {
+  final it = GetIt.instance;
+  registerCore(it, baseUrl: baseUrl);
+  for (final module in featureModules) {
+    module.register(it);
+  }
+  await it.allReady();
+
+  it.registerLazySingleton<RouteObserver<ModalRoute<void>>>(
+    () =>RouteObserver<ModalRoute<void>>(),
+  );
+  it.registerLazySingleton<AppRouter>(
+    () => AppRouter(it),
+  );
+  return it;
+}
