@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(listener: (context, state) {
       if(state is SplashStateIsGoLogin) {
-        context.push(AuthRoutesPaths.login);
+        context.go(AuthRoutesPaths.login);
       }
     },child: Center(child: Text('Splash'),),);
   }

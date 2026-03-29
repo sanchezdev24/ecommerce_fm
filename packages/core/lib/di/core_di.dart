@@ -10,8 +10,8 @@ void registerCore(GetIt it, {required String baseUrl}) {
         receiveTimeout: const Duration(seconds: 20),
         sendTimeout: const Duration(seconds: 20),
         headers: {
-          'Content-Type':'aplication/json',
-          'Acept':'aplication/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
         }
         )
       );

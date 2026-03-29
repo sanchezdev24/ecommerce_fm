@@ -11,6 +11,9 @@ Future<GetIt> setudDI(String baseUrl) async {
   for (final module in featureModules) {
     module.register(it);
   }
+  it.registerFactory<SplashBloc>(
+    () => SplashBloc(),
+  );
   await it.allReady();
 
   it.registerLazySingleton<RouteObserver<ModalRoute<void>>>(
@@ -18,9 +21,6 @@ Future<GetIt> setudDI(String baseUrl) async {
   );
   it.registerLazySingleton<AppRouter>(
     () => AppRouter(it),
-  );
-  it.registerFactory<SplashBloc>(
-    () => SplashBloc(),
   );
   return it;
 }
