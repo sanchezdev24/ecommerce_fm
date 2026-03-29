@@ -20,11 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return core.BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
-          if(state is LoginStateIsLoading) {
-
-          } else if(state is LoginStateIsError) {
+          if(state is LoginStateIsError) {
             core.ShadSonner.of(context).show(
               core.ShadToast.destructive(
+                id: 'login_error',
                 title: const Text('Error'),
                 description: Text(state.errorMsg),
               ),
