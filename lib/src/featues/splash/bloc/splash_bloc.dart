@@ -10,7 +10,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState>{
   }
 
   Future<void> _onGoLogin(SplashEventGoLogin event, Emitter<SplashState> emit) async {
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 2));
     emit(SplashStateIsGoLogin());
   }
 }

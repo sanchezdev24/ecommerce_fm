@@ -1,24 +1,14 @@
 part of 'login_bloc.dart';
 
-class LoginState extends Equatable {
-  final bool isLoading;
-  final bool isError;
-  final String? errorMsg;
-  final bool isSuccess;
+sealed class LoginState {}
 
-  const LoginState({this.isLoading = false, this.isError = false, this.errorMsg, this.isSuccess = false});
-  @override
-  List<Object?> get props => [isLoading, isError, errorMsg, isSuccess];
-}
+class LoginStateInitial extends LoginState {}
 
-class LoginStateIsLoading extends LoginState {
-  const LoginStateIsLoading(): super(isLoading: true);
-}
+class LoginStateIsLoading extends LoginState {}
 
 class LoginStateIsError extends LoginState {
-  const LoginStateIsError(String errorMsg): super(isLoading: false, isError: true, errorMsg: errorMsg);
+  final String errorMsg;
+  LoginStateIsError(this.errorMsg);
 }
 
-class LoginStateIsSuccess extends LoginState {
-  const LoginStateIsSuccess(): super(isLoading: false, isError: false, isSuccess: true);
-}
+class LoginStateIsSuccess extends LoginState {}

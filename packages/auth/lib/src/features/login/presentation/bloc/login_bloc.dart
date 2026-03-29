@@ -7,7 +7,7 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState>{
-  LoginBloc({required this.makeLoginUsecase}): super( LoginState()) {
+  LoginBloc({required this.makeLoginUsecase}): super( LoginStateInitial()) {
     on<LoginEventOnLogin>(_onMakeLogin);
   }
   final MakeLoginUsecase makeLoginUsecase;
@@ -16,7 +16,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
 
     emit(LoginStateIsLoading());
 
-    final login = await makeLoginUsecase(LoginParams(email: event.email, pwd: event.email)).run();
+    print("_onMakeLogin");
+    final login = await makeLoginUsecase(LoginParams(email: event.email, pwd: event.pwd)).run();
     login.match(
       (failure) => emit(LoginStateIsError(failure.message!)), 
       (result) => emit(LoginStateIsSuccess())
