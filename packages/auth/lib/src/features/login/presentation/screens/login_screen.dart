@@ -23,7 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
           if(state is LoginStateIsLoading) {
 
           } else if(state is LoginStateIsError) {
-
+            core.ShadSonner.of(context).show(
+              core.ShadToast.destructive(
+                title: const Text('Error'),
+                description: Text(state.errorMsg),
+              ),
+            );
           } else if(state is LoginStateIsSuccess) {
 
           }
