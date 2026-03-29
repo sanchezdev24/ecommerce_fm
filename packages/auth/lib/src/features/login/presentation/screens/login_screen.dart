@@ -1,4 +1,4 @@
-import 'package:core/core.dart';
+import 'package:core/core.dart' as core;
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,13 +9,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<ShadFormState>();
+  final _formKey = GlobalKey<core.ShadFormState>();
   bool _obscurePassword = true;
   bool _rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadTheme.of(context);
+    final theme = core.ShadTheme.of(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAF8F5),
@@ -69,9 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 48),
 
               // ── Card ──────────────────────────────────────────────
-              ShadCard(
+              core.ShadCard(
                 padding: const EdgeInsets.all(24),
-                child: ShadForm(
+                child: core.ShadForm(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 28),
 
                       // ── Email ──
-                      ShadInputFormField(
+                      core.ShadInputFormField(
                         id: 'email',
                         label: const Text('Correo electrónico'),
                         placeholder: const Text('hola@maison.mx'),
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: Icon(
-                            LucideIcons.mail,
+                            core.LucideIcons.mail,
                             size: 16,
                             color: theme.colorScheme.mutedForeground,
                           ),
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 16),
 
                       // ── Password ──
-                      ShadInputFormField(
+                      core.ShadInputFormField(
                         id: 'password',
                         label: const Text('Contraseña'),
                         placeholder: const Text('••••••••'),
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: Icon(
-                            LucideIcons.lock,
+                            core.LucideIcons.lock,
                             size: 16,
                             color: theme.colorScheme.mutedForeground,
                           ),
@@ -139,8 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.all(8),
                             child: Icon(
                               _obscurePassword
-                                  ? LucideIcons.eyeOff
-                                  : LucideIcons.eye,
+                                  ? core.LucideIcons.eyeOff
+                                  : core.LucideIcons.eye,
                               size: 16,
                               color: theme.colorScheme.mutedForeground,
                             ),
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Row(
                             children: [
-                              ShadCheckbox(
+                              core.ShadCheckbox(
                                 value: _rememberMe,
                                 onChanged: (v) =>
                                     setState(() => _rememberMe = v),
@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          ShadButton.ghost(
+                          core.ShadButton.ghost(
                             onPressed: () {},
                             padding: EdgeInsets.zero,
                             child: Text(
@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 24),
 
                       // ── Login Button ──
-                      ShadButton(
+                      core.ShadButton(
                         width: double.infinity,
                         onPressed: () {
                           if (_formKey.currentState!.saveAndValidate()) {
@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 16),
 
                       // ── Google Button ──
-                      ShadButton.outline(
+                      core.ShadButton.outline(
                         width: double.infinity,
                         onPressed: () {},
                         leading : Padding(
@@ -236,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 16,
                             height: 16,
                             errorBuilder: (_, __, ___) => const Icon(
-                              LucideIcons.globe,
+                              core.LucideIcons.globe,
                               size: 16,
                             ),
                           ),
@@ -258,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     '¿No tienes cuenta? ',
                     style: theme.textTheme.muted,
                   ),
-                  ShadButton.ghost(
+                  core.ShadButton.ghost(
                     onPressed: () {
                       // Navigate to CreateAccountScreen
                     },

@@ -1,5 +1,5 @@
 import 'package:auth/auth.dart';
-import 'package:core/core.dart';
+import 'package:core/core.dart' as core;
 import 'package:ecommerce_fm/src/featues/splash/bloc/splash_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SplashBloc, SplashState>(listener: (context, state) {
+    return core.BlocListener<SplashBloc, SplashState>(listener: (context, state) {
       if(state is SplashStateIsGoLogin) {
         context.go(AuthRoutesPaths.login);
       }
