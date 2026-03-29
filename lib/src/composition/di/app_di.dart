@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/di/core_di.dart';
 import 'package:ecommerce_fm/src/composition/di/feature_modules.dart';
 import 'package:ecommerce_fm/src/composition/router/app_router.dart';
+import 'package:ecommerce_fm/src/featues/splash/bloc/splash_bloc.dart';
 import 'package:flutter/material.dart';
 
 Future<GetIt> setudDI(String baseUrl) async {
@@ -17,6 +18,9 @@ Future<GetIt> setudDI(String baseUrl) async {
   );
   it.registerLazySingleton<AppRouter>(
     () => AppRouter(it),
+  );
+  it.registerFactory<SplashBloc>(
+    () => SplashBloc(),
   );
   return it;
 }
