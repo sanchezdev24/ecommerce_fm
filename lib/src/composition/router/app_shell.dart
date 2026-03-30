@@ -29,7 +29,12 @@ class AppShell extends StatelessWidget {
           NavigationDestination(
             icon: Icon(Icons.search_outlined),
             selectedIcon: Icon(Icons.search),
-            label: 'Buscar',
+            label: 'Catalogos',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.store_outlined),
+            selectedIcon: Icon(Icons.store),
+            label: 'Mis Compras',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),

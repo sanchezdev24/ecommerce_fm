@@ -46,13 +46,23 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/my-jobs',
-                builder: (context, state) => Center(child: Text('My Jobs'),),
+                path: '/catalogue',
+                builder: (context, state) => Center(child: Text('Catalogos'),),
               ),
             ],
           ),
 
           // Tab 2 - 
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/purchases',
+                builder: (context, state) => Center(child: Text('Mis Compras'),),
+              ),
+            ],
+          ),
+
+          // Tab 3 - 
           StatefulShellBranch(
             routes: [
               GoRoute(
