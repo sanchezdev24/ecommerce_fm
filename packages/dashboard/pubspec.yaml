@@ -1,4 +1,4 @@
-name: auth
+name: dashboard
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
@@ -13,8 +13,6 @@ dependencies:
     sdk: flutter
   core:
     path: ../core
-  dashboard:
-    path: ../dashboard
 
 dev_dependencies:
   flutter_test:

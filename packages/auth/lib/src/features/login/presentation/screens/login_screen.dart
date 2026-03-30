@@ -1,5 +1,6 @@
 import 'package:auth/src/features/login/presentation/bloc/login_bloc.dart';
 import 'package:core/core.dart' as core;
+import 'package:dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = core.ShadTheme.of(context);
-
+ 
     return core.BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if(state is LoginStateIsError) {
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           } else if(state is LoginStateIsSuccess) {
-
+            context.go(DashboardRoutesPaths.dashboard);
           }
         }, 
         builder: (context, state) => Scaffold(
