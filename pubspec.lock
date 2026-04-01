@@ -83,9 +83,11 @@ packages:
   core:
     dependency: "direct main"
     description:
-      path: "packages/core"
-      relative: true
-    source: path
+      path: "."
+      ref: development
+      resolved-ref: dadc76f66270f1a33ccbff5325a5a62540e9f4c0
+      url: "https://github.com/sanchezdev24/core_mobile"
+    source: git
     version: "0.0.1"
   crypto:
     dependency: transitive
