@@ -37,7 +37,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: DashboardRoutesPaths.dashboard,
-                builder: (context, state) => DashboardScreen(),
+                builder: (context, state) => FullProfileScreen(),
               ),
             ],
           ),

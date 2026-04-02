@@ -1,313 +1,169 @@
-import 'package:auth/src/features/login/presentation/bloc/login_bloc.dart';
-import 'package:core/core.dart' as core;
+import 'package:core/core.dart';
 import 'package:dashboard/dashboard.dart';
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+/// Screen 03 — Login
+/// Matches the Shoppe UI Kit design exactly.
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({
+    super.key,
+    this.onNext,
+    this.onCancel,
+  });
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<core.ShadFormState>();
-  bool _obscurePassword = true;
-  bool _rememberMe = false;
+  final ValueChanged<String>? onNext;
+  final VoidCallback? onCancel;
 
   @override
   Widget build(BuildContext context) {
-    final theme = core.ShadTheme.of(context);
- 
-    return core.BlocConsumer<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if(state is LoginStateIsError) {
-            core.ShadSonner.of(context).show(
-              core.ShadToast.destructive(
-                id: 'login_error',
-                title: const Text('Error'),
-                description: Text(state.errorMsg),
-              ),
-            );
-          } else if(state is LoginStateIsSuccess) {
-            context.go(DashboardRoutesPaths.dashboard);
-          }
-        }, 
-        builder: (context, state) => Scaffold(
-        backgroundColor: const Color(0xFFFAF8F5),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 48),
+    final emailController = TextEditingController();
 
-                // ── Brand Header ──────────────────────────────────────
-                Center(
+    return Scaffold(
+      backgroundColor: ShoppeColors.background,
+      body: Stack(
+        children: [
+          // ── Decorative blobs ──────────────────────────────────────────────
+
+          // Light blue organic blob (behind the primary one)
+          Positioned(
+            top: 60,
+            left: -20,
+            child: Container(
+              width: 280,
+              height: 280,
+              decoration: BoxDecoration(
+                color: ShoppeColors.primaryLight.withOpacity(0.55),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(999),
+                  topRight: Radius.circular(999),
+                  bottomRight: Radius.circular(999),
+                  bottomLeft: Radius.circular(160),
+                ),
+              ),
+            ),
+          ),
+
+          // Large primary blue circle — top-left, partially off-screen
+          Positioned(
+            top: -80,
+            left: -60,
+            child: Container(
+              width: 340,
+              height: 340,
+              decoration: const BoxDecoration(
+                color: ShoppeColors.primary,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+
+          // Small primary blue blob — right edge, mid-screen
+          Positioned(
+            top: 340,
+            right: -50,
+            child: Container(
+              width: 140,
+              height: 140,
+              decoration: const BoxDecoration(
+                color: ShoppeColors.primary,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(999),
+                  bottomLeft: Radius.circular(999),
+                  topRight: Radius.circular(40),
+                  bottomRight: Radius.circular(999),
+                ),
+              ),
+            ),
+          ),
+
+          // ── Content ───────────────────────────────────────────────────────
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Spacer that pushes content to the lower half
+                const Spacer(),
+
+                // Title + subtitle
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: ShoppeSpacing.pagePadding,
+                  ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1A1A1A),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Icon(
-                          Icons.diamond_outlined,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
                       Text(
-                        'MAISON',
-                        style: theme.textTheme.h1.copyWith(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 6,
-                          color: const Color(0xFF1A1A1A),
-                        ),
+                        'Login',
+                        style: ShoppeTypography.displayLarge,
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Luxury Fashion',
-                        style: theme.textTheme.muted.copyWith(
-                          letterSpacing: 2,
-                          fontSize: 11,
-                        ),
+                      const SizedBox(height: ShoppeSpacing.xs),
+                      Row(
+                        children: [
+                          Text(
+                            'Good to see you back!',
+                            style: ShoppeTypography.bodyLarge.copyWith(
+                              color: ShoppeColors.grey700,
+                            ),
+                          ),
+                          const SizedBox(width: ShoppeSpacing.xs),
+                          const Text(
+                            '🖤',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 48),
+                const SizedBox(height: ShoppeSpacing.xl),
 
-                // ── Card ──────────────────────────────────────────────
-                core.ShadCard(
-                  padding: const EdgeInsets.all(24),
-                  child: core.ShadForm(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Bienvenida de nuevo',
-                          style: theme.textTheme.h3.copyWith(
-                            color: const Color(0xFF1A1A1A),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Ingresa a tu cuenta para continuar',
-                          style: theme.textTheme.muted,
-                        ),
+                // Email field
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: ShoppeSpacing.pagePadding,
+                  ),
+                  child: ShoppeTextField(
+                    placeholder: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                    controller: emailController,
+                  ),
+                ),
 
-                        const SizedBox(height: 28),
+                const SizedBox(height: ShoppeSpacing.xl),
 
-                        // ── Email ──
-                        core.ShadInputFormField(
-                          id: 'email',
-                          label: const Text('Correo electrónico'),
-                          placeholder: const Text('hola@ecommerce.mx'),
-                          keyboardType: TextInputType.emailAddress,
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Icon(
-                              core.LucideIcons.mail,
-                              size: 16,
-                              color: theme.colorScheme.mutedForeground,
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Ingresa tu correo';
-                            }
-                            if (!value.contains('@')) {
-                              return 'Correo inválido';
-                            }
-                            return null;
-                          },
-                        ),
+                // Next button
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: ShoppeSpacing.pagePadding,
+                  ),
+                  child: ShoppeButton(
+                    label: 'Next',
+                    //onPressed: () => onNext?.call(emailController.text.trim()),
+                    onPressed: () {context.push(DashboardRoutesPaths.dashboard);},
+                  ),
+                ),
 
-                        const SizedBox(height: 16),
+                const SizedBox(height: ShoppeSpacing.base),
 
-                        // ── Password ──
-                        core.ShadInputFormField(
-                          id: 'password',
-                          label: const Text('Contraseña'),
-                          placeholder: const Text('••••••••'),
-                          obscureText: _obscurePassword,
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Icon(
-                              core.LucideIcons.lock,
-                              size: 16,
-                              color: theme.colorScheme.mutedForeground,
-                            ),
-                          ),
-                          trailing: GestureDetector(
-                            onTap: () => setState(
-                                () => _obscurePassword = !_obscurePassword),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Icon(
-                                _obscurePassword
-                                    ? core.LucideIcons.eyeOff
-                                    : core.LucideIcons.eye,
-                                size: 16,
-                                color: theme.colorScheme.mutedForeground,
-                              ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Ingresa tu contraseña';
-                            }
-                            if (value.length < 6) {
-                              return 'Mínimo 6 caracteres';
-                            }
-                            return null;
-                          },
-                        ),
-
-                        const SizedBox(height: 12),
-
-                        // ── Remember me + Forgot ──
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                core.ShadCheckbox(
-                                  value: _rememberMe,
-                                  onChanged: (v) =>
-                                      setState(() => _rememberMe = v),
-                                  label: Text(
-                                    'Recuérdame',
-                                    style: theme.textTheme.small,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            core.ShadButton.ghost(
-                              onPressed: () {},
-                              padding: EdgeInsets.zero,
-                              child: Text(
-                                '¿Olvidaste tu contraseña?',
-                                style: theme.textTheme.small.copyWith(
-                                  color: const Color(0xFF1A1A1A),
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        // ── Login Button ──
-                        core.ShadButton(
-                          enabled: state is! LoginStateIsLoading,
-                          leading: state is LoginStateIsLoading
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2,color: Colors.white,),
-                              )
-                            : null,
-                          width: double.infinity,
-                          onPressed: () {
-                            if (_formKey.currentState!.saveAndValidate()) {
-                              final values = _formKey.currentState!.value;
-                              final email = values['email'] as String;
-                              final password = values['password'] as String;
-                              context.read<LoginBloc>().add(LoginEventOnLogin(email: email, pwd: password));
-                            }
-                          },
-                          child: const Text('Iniciar sesión'),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // ── Divider ──
-                        Row(
-                          children: [
-                            const Expanded(child: Divider()),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              child: Text(
-                                'o continúa con',
-                                style: theme.textTheme.muted.copyWith(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const Expanded(child: Divider()),
-                          ],
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // ── Google Button ──
-                        core.ShadButton.outline(
-                          width: double.infinity,
-                          onPressed: () {},
-                          leading : Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: Image.network(
-                              'https://www.google.com/favicon.ico',
-                              width: 16,
-                              height: 16,
-                              errorBuilder: (_, __, ___) => const Icon(
-                                core.LucideIcons.globe,
-                                size: 16,
-                              ),
-                            ),
-                          ),
-                          child: const Text('Continuar con Google'),
-                        ),
-                      ],
+                // Cancel link
+                GestureDetector(
+                  onTap: onCancel,
+                  child: Center(
+                    child: Text(
+                      'Cancel',
+                      style: ShoppeTypography.linkSecondary,
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 24),
-
-                // ── Sign Up Link ──
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '¿No tienes cuenta? ',
-                      style: theme.textTheme.muted,
-                    ),
-                    core.ShadButton.ghost(
-                      onPressed: () {
-                        // Navigate to CreateAccountScreen
-                      },
-                      padding: EdgeInsets.zero,
-                      child: Text(
-                        'Crear cuenta',
-                        style: theme.textTheme.small.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF1A1A1A),
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 32),
+                const SizedBox(height: ShoppeSpacing.xxxl),
               ],
             ),
           ),
-        ),
-      )
+        ],
+      ),
     );
   }
 }
