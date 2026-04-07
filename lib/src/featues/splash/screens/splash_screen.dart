@@ -11,18 +11,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
     context.read<SplashBloc>().add(SplashEventGoLogin());
   }
+
   @override
   Widget build(BuildContext context) {
-    return core.BlocListener<SplashBloc, SplashState>(listener: (context, state) {
-      if(state is SplashStateIsGoLogin) {
-        context.go(AuthRoutesPaths.login);
-      }
-    },child: Center(child: Text('Splash'),),);
+    return core.BlocListener<SplashBloc, SplashState>(
+      listener: (context, state) {
+        if (state is SplashStateIsGoLogin) {
+          context.go(AuthRoutesPaths.start);
+        }
+      },
+      child: Center(child: Text('Splash')),
+    );
   }
 }

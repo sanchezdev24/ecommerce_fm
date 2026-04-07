@@ -1,16 +1,12 @@
+import 'package:auth/src/composition/router/router.dart';
 import 'package:core/core.dart';
-import 'package:dashboard/dashboard.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
 /// Screen 03 — Login
 /// Matches the Shoppe UI Kit design exactly.
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({
-    super.key,
-    this.onNext,
-    this.onCancel,
-  });
+  const LoginScreen({super.key, this.onNext, this.onCancel});
 
   final ValueChanged<String>? onNext;
   final VoidCallback? onCancel;
@@ -93,10 +89,7 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Login',
-                        style: ShoppeTypography.displayLarge,
-                      ),
+                      Text('Login', style: ShoppeTypography.displayLarge),
                       const SizedBox(height: ShoppeSpacing.xs),
                       Row(
                         children: [
@@ -107,10 +100,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: ShoppeSpacing.xs),
-                          const Text(
-                            '🖤',
-                            style: TextStyle(fontSize: 16),
-                          ),
+                          const Text('🖤', style: TextStyle(fontSize: 16)),
                         ],
                       ),
                     ],
@@ -141,7 +131,9 @@ class LoginScreen extends StatelessWidget {
                   child: ShoppeButton(
                     label: 'Next',
                     //onPressed: () => onNext?.call(emailController.text.trim()),
-                    onPressed: () {context.push(DashboardRoutesPaths.dashboard);},
+                    onPressed: () {
+                      context.push(AuthRoutesPaths.password);
+                    },
                   ),
                 ),
 
