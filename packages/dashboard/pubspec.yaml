@@ -17,7 +17,7 @@ dependencies:
       ref: development
 
   design_system:
-    path: packages/design_system
+    path: ../design_system
 
 dev_dependencies:
   flutter_test:
